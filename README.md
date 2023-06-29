@@ -7,15 +7,15 @@ This pipeline is for processing EasySci-RNAS datasets and takes the raw FASTQ fi
 ## Dependencies:
 
 star: version 2.7.10b  
-samtools: version 1.17 
-trim-galore: version 0.6.10 
-htseq: version 2.0.3
-pandas: version 1.5.2 
-numpy: version 1.23.5 
-scipy: version 1.10.0
-biopython: version 1.81 
-parallel: version 20230522
-python: version 3.10.11
+samtools: version 1.17  
+trim-galore: version 0.6.10   
+htseq: version 2.0.3  
+pandas: version 1.5.2   
+numpy: version 1.23.5   
+scipy: version 1.10.0  
+biopython: version 1.81   
+parallel: version 20230522  
+python: version 3.10.11  
 
 
 ## Pre-processing: to generate the input FASTQ files, follow this demultiplexing tutorial:
@@ -24,11 +24,11 @@ Demultiplexing for EasySci-RNA uses only the P7 barcodes, because in EasySci-RNA
 
 bcl2fastq --runfolder-dir INPUT_FOLDER(sequencer generated files) -o OUTPUT_FOLDER --sample-sheet SAMPLE_SHEET--reports-dir OUTPUT_FOLDER/report --barcode-mismatches 1 --create-fastq-for-index-reads --no-lane-splitting --use-bases-mask Y*,I*,Y*,Y* --minimum-trimmed-read-length 0 --mask-short-adapter-reads 0
 
-This demultiplexing generates 4 files:
-•	R1: Read 1
-•	R2: P5 barcode
-•	R3: Read 2
-•	I1: P7 barcode
+This demultiplexing generates 4 files:  
+•	R1: Read 1  
+•	R2: P5 barcode  
+•	R3: Read 2  
+•	I1: P7 barcode  
 
 
 ## Running the EasySci-RNA computational pipeline:
@@ -62,12 +62,12 @@ The following input parameters need to be set and must follow the order presente
 
 The final output files can be found here:
 
-‘output_folder/report/out/genes/’
-‘output_folder/report/out/exons/’
+‘output_folder/report/out/genes/’  
+‘output_folder/report/out/exons/’  
 
-•	cell_annotation.csv: cell annotation csv file
-•	gene_annotation.csv/exon_annotation.csv: gene or exon annotation csv file
-•	expression_matrix.mtx: gene or exon x cell expression matrix in sparse matrix format (matrix market format)
+•	cell_annotation.csv: cell annotation csv file  
+•	gene_annotation.csv/exon_annotation.csv: gene or exon annotation csv file  
+•	expression_matrix.mtx: gene or exon x cell expression matrix in sparse matrix format (matrix market format)  
 
 The cells are not filtered by any criteria, but during the computational pipeline the reads originating from the shortdT and random hexamer RT primers are merged. The pipeline assumes that the barcoded oligos from the reference publication were used in the reverse transcription ans ligation steps.
 
