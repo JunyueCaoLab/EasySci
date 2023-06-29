@@ -80,4 +80,4 @@ bioRxiv; doi: https://doi.org/10.1101/2022.09.28.509825
 
 ## Credits
 
-The EasySci-RNA computational pipeline was developed by Andras Sziraki,M.D. at the Cao Lab, The Rockefeller University.
+The EasySci-RNA computational pipeline was developed by Andras Sziraki, M.D. at the Cao Lab, The Rockefeller University.
