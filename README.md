@@ -48,11 +48,11 @@ The following input parameters need to be set and must follow the order presente
 
 •	STAR_index: STAR index folder for alignment.
 
-•	gtf_file: GTF file for the gene counting step. An example of this file for both human (GRCh38) and mouse (GRCm39) can be found under ‘path_to_script/script_folder/reference_files/’.
+•	gtf_file: GTF file for the gene counting step.
 
-•	gtf_file_exons: GTF file for the exon counting step, this file can be created from the above GTF file by subsetting for only the exonic regions, removing the redundant exons, changing the feature column from ‘exon’ to ‘gene’ and formatting the final column. An example of this file for both human (GRCh38) and mouse (GRCm39) can be found under ‘path_to_script/script_folder/reference_files/’.
+•	gtf_file_exons: GTF file for the exon counting step, this file can be created from the above GTF file by subsetting for only the exonic regions, removing the redundant exons, changing the feature column from ‘exon’ to ‘gene’ and formatting the final column. An example of this file for both human (GRCh38) and mouse (GRCm39) can be found under ‘/script_folder/reference_files/’.
 
-•	RT_barcode_matching_file: This file is used to match the random hexamer and shortdT reverse transcription reads from the same well. The following file can be used if barcodes from the reference publication were used, and reverse transcription wells received primers from the corresponding primer wells. ‘path_to_script/script_folder/barcode_files/RT_barcode_matching.txt’
+•	RT_barcode_matching_file: This file is used to match the random hexamer and shortdT reverse transcription reads from the same well. The following file can be used if barcodes from the reference publication were used, and reverse transcription wells received primers from the corresponding primer wells. ‘/script_folder/barcode_files/RT_barcode_matching.txt’
 
 •	cores: Number of cores used during the computational pipeline.
 
