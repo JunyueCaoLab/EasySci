@@ -6,7 +6,7 @@ This pipeline is for processing EasySci-RNAS datasets and takes the raw FASTQ fi
 
 ## Dependencies:
 
-star: version 2.7.10b
+star: version 2.7.10b  
 samtools: version 1.17 
 trim-galore: version 0.6.10 
 htseq: version 2.0.3
