@@ -9,13 +9,14 @@ This pipeline is for processing EasySci-RNAS datasets and takes the raw FASTQ fi
 star: version 2.7.10b  
 samtools: version 1.17  
 trim-galore: version 0.6.10   
+python: version 3.10.11  
 htseq: version 2.0.3  
 pandas: version 1.5.2   
 numpy: version 1.23.5   
 scipy: version 1.10.0  
 biopython: version 1.81   
 parallel: version 20230522  
-python: version 3.10.11  
+
 
 
 ## Pre-processing: to generate the input FASTQ files, follow this demultiplexing tutorial:
