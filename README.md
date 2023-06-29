@@ -70,7 +70,7 @@ The final output files can be found here:
 •	gene_annotation.csv/exon_annotation.csv: gene or exon annotation csv file  
 •	expression_matrix.mtx: gene or exon x cell expression matrix in sparse matrix format (matrix market format)  
 
-The cells are not filtered by any criteria, but during the computational pipeline the reads originating from the shortdT and random hexamer RT primers are merged. The pipeline assumes that the barcoded oligos from the reference publication were used in the reverse transcription ans ligation steps.
+The cells are not filtered by any criteria, but during the computational pipeline the reads originating from the shortdT and random hexamer RT primers of the same cells are merged. The pipeline assumes that the barcoded oligos from the reference publication were used in the reverse transcription and ligation steps.
 
 
 ## Reference:
