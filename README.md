@@ -76,4 +76,8 @@ The cells are not filtered by any criteria, but during the computational pipelin
 ## Reference:
 
 Andras Sziraki, Ziyu Lu, Jasper Lee, Gabor Banyai, Sonya Anderson, Abdulraouf Abdulraouf, Eli Metzner, Andrew Liao, Alexander Epstein, Zihan Xu, Zehao Zhang, Li Gan, Peter T. Nelson, Wei Zhou, Junyue Cao (2022) A global view of aging and Alzheimer’s pathogenesis-associated cell population dynamics and molecular signatures in the human and mouse brains
-bioRxiv; doi: https://doi.org/10.1101/2022.09.28.509825 
+bioRxiv; doi: https://doi.org/10.1101/2022.09.28.509825
+
+## Credits
+
+The EasySci-RNA computational pipeline was developed by Andras Sziraki,M.D. at the Cao Lab, The Rockefeller University.
