@@ -1,7 +1,7 @@
 # EasySci
 ## Computational pipeline to process EasySci-RNA data.
 
-This pipeline is for processing EasySci-RNAS datasets and takes the raw FASTQ files as inputs and outputs the cell/gene (or exon) matrix. The pipeline consists of the following steps: barcode extraction and matching; trimming of the adaptor and polyA sequences, alignment to the reference genome; filtering of the low-quality alignments; PCR duplicate removal; gene and exon expression counting per single cell.
+This pipeline is for processing EasySci-RNA datasets and takes the raw FASTQ files as inputs and outputs the cell/gene (or exon) matrix. The pipeline consists of the following steps: barcode extraction and matching; trimming of the adaptor and polyA sequences, alignment to the reference genome; filtering of the low-quality alignments; PCR duplicate removal; gene and exon expression counting per single cell.
 
 Please note: This computational pipeline is an updated version of the pipeline used to the process the EasySci dataset in our publication. The updates include making the pipeline faster, saving space on disk by eliminating single-cell SAM file generation and an integrated post-processing step that merges the reads from the two different reverse transcription primer layers. Small differences are expected compared to the original pipeline, particularly the updated version is more sensitive and will recover slightly more cells. To reproduce the results in our publication, pleaser refer to the original pipeline we used to process the data: https://zenodo.org/records/8395492.
 
