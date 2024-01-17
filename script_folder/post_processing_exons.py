@@ -76,24 +76,42 @@ def merge_RT_primers(cell_annotation, count_matrix, RT_matching_file):
     for i in range(len(matching)):
         index = cell_annotation['RT_barcodes_new'] == matching.iloc[i, 1]
         cell_annotation.loc[index, 'RT_barcodes_new'] = matching.iloc[i, 0]
-        
+
     # Create 'New_cell_name' column with the unifies RT barcode across shortdT and randomN RT primers
     cell_annotation['New_cell_name'] = cell_annotation['PCR_batch'] + '.' + cell_annotation['Ligation_barcodes'] + cell_annotation['RT_barcodes_new']
-    
+
     # Collapse same cells
     table_counts = cell_annotation['New_cell_name'].value_counts()
     singlet = table_counts[table_counts == 1].index
     doublet = table_counts[table_counts == 2].index
-      
-    # Separate singlet and doublet cells, then collapse doublet cells
+
+    # Separate singlet and doublet cells, then collapse doublet cells    
     cell_annotation_singlet = cell_annotation[cell_annotation['New_cell_name'].isin(singlet)].reset_index(drop=True)
-    count_matrix_singlet = count_matrix[:, np.where(cell_annotation['New_cell_name'].isin(singlet))[0]] 
+    count_matrix_singlet = count_matrix[:, np.where(cell_annotation['New_cell_name'].isin(singlet))[0]]
+
+    cell_annotation_singlet['ShortdT_UMI_count'] = 0
+    cell_annotation_singlet['RandomN_UMI_count'] = 0
+    cell_annotation_singlet['ShortdT_UMI_count'].loc[cell_annotation_singlet['RT_barcodes'].isin(matching.iloc[:, 0])] = cell_annotation_singlet['UMI_count'].loc[cell_annotation_singlet['RT_barcodes'].isin(matching.iloc[:, 0])]
+    cell_annotation_singlet['RandomN_UMI_count'].loc[cell_annotation_singlet['RT_barcodes'].isin(matching.iloc[:, 1])] = cell_annotation_singlet['UMI_count'].loc[cell_annotation_singlet['RT_barcodes'].isin(matching.iloc[:, 1])]
+
     cell_annotation_doublet = cell_annotation[cell_annotation['New_cell_name'].isin(doublet)].reset_index(drop=True)
     cell_annotation_doublet_sorted = cell_annotation_doublet.sort_values('New_cell_name').reset_index(drop=True) 
     cell_annotation_doublet_first_cell = cell_annotation_doublet_sorted.iloc[::2].reset_index(drop=True)
     cell_annotation_doublet_second_cell = cell_annotation_doublet_sorted.iloc[1::2].reset_index(drop=True)
+
+    cell_annotation_doublet_first_cell['ShortdT_UMI_count'] = 0
+    cell_annotation_doublet_first_cell['RandomN_UMI_count'] = 0
+    cell_annotation_doublet_first_cell['ShortdT_UMI_count'].loc[cell_annotation_doublet_first_cell['RT_barcodes'].isin(matching.iloc[:, 0])] = cell_annotation_doublet_first_cell['UMI_count'].loc[cell_annotation_doublet_first_cell['RT_barcodes'].isin(matching.iloc[:, 0])]
+    cell_annotation_doublet_first_cell['RandomN_UMI_count'].loc[cell_annotation_doublet_first_cell['RT_barcodes'].isin(matching.iloc[:, 1])] = cell_annotation_doublet_first_cell['UMI_count'].loc[cell_annotation_doublet_first_cell['RT_barcodes'].isin(matching.iloc[:, 1])]
+    cell_annotation_doublet_second_cell['ShortdT_UMI_count'] = 0
+    cell_annotation_doublet_second_cell['RandomN_UMI_count'] = 0
+    cell_annotation_doublet_second_cell['ShortdT_UMI_count'].loc[cell_annotation_doublet_second_cell['RT_barcodes'].isin(matching.iloc[:, 0])] = cell_annotation_doublet_second_cell['UMI_count'].loc[cell_annotation_doublet_second_cell['RT_barcodes'].isin(matching.iloc[:, 0])]
+    cell_annotation_doublet_second_cell['RandomN_UMI_count'].loc[cell_annotation_doublet_second_cell['RT_barcodes'].isin(matching.iloc[:, 1])] = cell_annotation_doublet_second_cell['UMI_count'].loc[cell_annotation_doublet_second_cell['RT_barcodes'].isin(matching.iloc[:, 1])]
+    cell_annotation_doublet_first_cell['ShortdT_UMI_count'] = cell_annotation_doublet_first_cell['ShortdT_UMI_count'] + cell_annotation_doublet_second_cell['ShortdT_UMI_count']
+    cell_annotation_doublet_first_cell['RandomN_UMI_count'] = cell_annotation_doublet_first_cell['RandomN_UMI_count'] + cell_annotation_doublet_second_cell['RandomN_UMI_count']
+
     total_reads_first = 1 / (1 - cell_annotation_doublet_first_cell.iloc[:, 1]) * cell_annotation_doublet_first_cell.iloc[:, 2]
-    total_reads_second  = 1 / (1 - cell_annotation_doublet_second_cell.iloc[:, 1]) * cell_annotation_doublet_second_cell.iloc[:, 2]    
+    total_reads_second  = 1 / (1 - cell_annotation_doublet_second_cell.iloc[:, 1]) * cell_annotation_doublet_second_cell.iloc[:, 2]
     cell_annotation_doublet_first_cell.iloc[:, 1] = (cell_annotation_doublet_first_cell.iloc[:, 1] * total_reads_first + cell_annotation_doublet_second_cell.iloc[:, 1] * total_reads_second) / (total_reads_first + total_reads_second)
     cell_annotation_doublet_first_cell.iloc[:, 2:4] = cell_annotation_doublet_first_cell.iloc[:, 2:4] + cell_annotation_doublet_second_cell.iloc[:, 2:4]
     count_matrix_doublet = count_matrix[:,np.where(cell_annotation['New_cell_name'].isin(doublet))[0]]   
@@ -105,8 +123,9 @@ def merge_RT_primers(cell_annotation, count_matrix, RT_matching_file):
     count_matrix_merged = sp.hstack([count_matrix_singlet, count_matrix_doublet_merged])
     cell_annotation_merged['Gene_count'] = (count_matrix_merged > 0).sum(axis=0).A[0]
     cell_annotation_merged['RT_barcodes_shortdT'] = cell_annotation_merged['RT_barcodes_new'] # RT barcode is consistently the shortdT barcode
+    cell_annotation_merged['Cell_name'] = cell_annotation_merged['New_cell_name'] # Rename the cell to include consistently the shortdT barcode
     cell_annotation_merged = cell_annotation_merged.drop(columns=['RT_Ligation_barcodes', 'RT_barcodes_new', 'New_cell_name', 'RT_barcodes'])
-  
+
     return cell_annotation_merged, count_matrix_merged
     
 
@@ -118,4 +137,5 @@ if __name__ == "__main__":
     RT_matching_file = sys.argv[4]
     pipeline = sys.argv[5]
     merge_gene_count_files(input_folder, output_folder, sampleID, RT_matching_file, pipeline)
+
 
