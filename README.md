@@ -3,6 +3,7 @@
 
 This pipeline is for processing EasySci-RNAS datasets and takes the raw FASTQ files as inputs and outputs the cell/gene (or exon) matrix. The pipeline consists of the following steps: barcode extraction and matching; trimming of the adaptor and polyA sequences, alignment to the reference genome; filtering of the low-quality alignments; PCR duplicate removal; gene and exon expression counting per single cell.
 
+Please note: This computational pipeline is an updated version of the pipeline used to the process the EasySci dataset in our publication. The updates include making the pipeline faster, saving space on disk by eliminating single-cell SAM file generation and an integrated post-processing step that merges the reads from the two different reverse transcription primer layers. Small differences are expected compared to the original pipeline, particularly the updated version is more sensitive and will recover slightly more cells. To reproduce the results in our publication, pleaser refer to the original pipeline we used to process the data: https://zenodo.org/records/8395492.
 
 ## Dependencies:
 
@@ -75,8 +76,7 @@ The cells are not filtered by any criteria, but during the computational pipelin
 
 ## Reference:
 
-Andras Sziraki, Ziyu Lu, Jasper Lee, Gabor Banyai, Sonya Anderson, Abdulraouf Abdulraouf, Eli Metzner, Andrew Liao, Alexander Epstein, Zihan Xu, Zehao Zhang, Li Gan, Peter T. Nelson, Wei Zhou, Junyue Cao (2022) A global view of aging and Alzheimer’s pathogenesis-associated cell population dynamics and molecular signatures in the human and mouse brains
-bioRxiv; doi: https://doi.org/10.1101/2022.09.28.509825
+Andras Sziraki, Ziyu Lu, Jasper Lee, Gabor Banyai, Sonya Anderson, Abdulraouf Abdulraouf, Eli Metzner, Andrew Liao, Jason Banfelder, Alexander Epstein, Chloe Schaefer, Zihan Xu, Zehao Zhang, Li Gan, Peter T. Nelson, Wei Zhou, Junyue Cao. A global view of aging and Alzheimer’s pathogenesis-associated cell population dynamics and molecular signatures in human and mouse brains. Nature Genetics 55, 2104–2116 (2023). https://doi.org/10.1038/s41588-023-01572-y
 
 ## Credits
 
